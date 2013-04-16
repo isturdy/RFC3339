@@ -43,13 +43,12 @@ import System.Locale
 -- The RFC3339 class definition
 
 -- | This class is here to allow future support for other data types
--- like Data.Text or Data.ByteString if that becomes necessary
+-- if that becomes necessary
 class RFC3339 a where
   showRFC3339 :: ZonedTime -> a
   readRFC3339 :: a -> Maybe ZonedTime
   formatRFC3339 :: [a]
 
--- | For now there is only an instance for the String data type
 instance RFC3339 String where
   showRFC3339 zt@(ZonedTime _ z) =
     formatTime defaultTimeLocale "%FT%T" zt ++ printZone

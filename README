@@ -6,6 +6,7 @@ not sure where/when this will end.
 
 So, some latest changes:
 - Added initial support for RFC 2822
+- Added Text instance
 
 TODO:
 - Get rid of Haskell "formatTime" function, and use a more decent pretty

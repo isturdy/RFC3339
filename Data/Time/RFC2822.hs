@@ -46,13 +46,12 @@ import System.Locale
 -- The RFC2822 class definition
 
 -- | This class is here to allow future support for other data types
--- like Data.Text or Data.ByteString if that becomes necessary
+-- if that becomes necessary
 class RFC2822 a where
   showRFC2822 :: ZonedTime -> a
   readRFC2822 :: a -> Maybe ZonedTime
   formatRFC2822 :: [a]
 
--- | For now there is only an instance for the String data type
 instance RFC2822 String where
   showRFC2822 zt@(ZonedTime _ z) =
     formatTime defaultTimeLocale "%a, %e %b %Y %T" zt ++ printZone
