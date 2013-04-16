@@ -38,8 +38,6 @@ module Data.Time.RFC2822 (
 
 import Data.Time.Format
 import Data.Time.LocalTime
-import Data.Time.Calendar
-import Data.Maybe
 import System.Locale
 
 -- ----------------------------------------------------------------------------
@@ -54,7 +52,7 @@ class RFC2822 a where
 
 -- | For now there is only an instance for the String data type
 instance RFC2822 String where
-  showRFC2822 zt@(ZonedTime lt z) = 
+  showRFC2822 zt@(ZonedTime _ z) =
     formatTime defaultTimeLocale "%a, %e %b %Y %T" zt ++ printZone
     where
       timeZoneStr = timeZoneOffsetString z
@@ -86,6 +84,3 @@ instance RFC2822 String where
       -- TODO: trim other white space characters
       t' :: String
       t' = lines t >>= ("" ++)
-
-showTime :: IO String
-showTime = getZonedTime >>= return . showRFC2822

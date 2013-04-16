@@ -35,8 +35,6 @@ module Data.Time.RFC3339 (
 
 import Data.Time.Format
 import Data.Time.LocalTime
-import Data.Time.Calendar
-import Data.Maybe
 import System.Locale
 
 -- ----------------------------------------------------------------------------
@@ -51,7 +49,7 @@ class RFC3339 a where
 
 -- | For now there is only an instance for the String data type
 instance RFC3339 String where
-  showRFC3339 zt@(ZonedTime lt z) =
+  showRFC3339 zt@(ZonedTime _ z) =
     formatTime defaultTimeLocale "%FT%T" zt ++ printZone
     where
       timeZoneStr = timeZoneOffsetString z
@@ -71,6 +69,3 @@ instance RFC3339 String where
       tryP :: String -> (String -> Maybe a) -> Maybe a -> Maybe a
       tryP s f acc | isJust acc = acc
                    | otherwise = f s
-
-showTime :: IO String
-showTime = getZonedTime >>= return . showRFC3339
