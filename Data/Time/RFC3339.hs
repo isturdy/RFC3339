@@ -1,5 +1,5 @@
 {-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
--- |                                                                               
+-- |
 -- Module      : Data.Time.RFC3339
 -- Copyright   : (c) 2011 Hugo Daniel Gomes
 --
@@ -8,7 +8,7 @@
 -- Stability   : experimental
 -- Portability : GHC
 --
--- Support for reading and displaying time in the format specified by 
+-- Support for reading and displaying time in the format specified by
 -- the RFC3339 <http://www.ietf.org/rfc/rfc3339.txt>
 --
 -- Example of usage:
@@ -36,7 +36,7 @@ module Data.Time.RFC3339 (
 import Data.Time.Format
 import Data.Time.LocalTime
 import Data.Time.Calendar
-import Data.Maybe 
+import Data.Maybe
 import System.Locale
 
 test1 = "1985-04-12T23:20:50.52Z"
@@ -51,7 +51,7 @@ testParse = length (catMaybes (map readRFC3339 tests)) == length tests
 -- ----------------------------------------------------------------------------
 -- The RFC3339 class definition
 
--- | This class is here to allow future support for other data types 
+-- | This class is here to allow future support for other data types
 -- like Data.Text or Data.ByteString if that becomes necessary
 class RFC3339 a where
   showRFC3339 :: ZonedTime -> a
@@ -60,7 +60,7 @@ class RFC3339 a where
 
 -- | For now there is only an instance for the String data type
 instance RFC3339 String where
-  showRFC3339 zt@(ZonedTime lt z) = 
+  showRFC3339 zt@(ZonedTime lt z) =
     formatTime defaultTimeLocale "%FT%T" zt ++ printZone
     where
       timeZoneStr = timeZoneOffsetString z
@@ -73,7 +73,7 @@ instance RFC3339 String where
                   , "%FT%T%QZ"
                   ]
   readRFC3339 t = foldr (tryP t) Nothing $ map p formatRFC3339
-    where 
+    where
       p :: String -> String -> Maybe ZonedTime
       p f s = parseTime defaultTimeLocale f s
 

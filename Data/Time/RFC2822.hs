@@ -1,5 +1,5 @@
 {-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
--- |                                                                               
+-- |
 -- Module      : Data.Time.RFC2822
 -- Copyright   : (c) 2011 Hugo Daniel Gomes
 --
@@ -8,7 +8,7 @@
 -- Stability   : experimental
 -- Portability : GHC
 --
--- Support for reading and displaying time in the format specified by 
+-- Support for reading and displaying time in the format specified by
 -- the RFC2822 <http://www.ietf.org/rfc/rfc2822.txt> section 3.3
 --
 -- Example of usage:
@@ -39,7 +39,7 @@ module Data.Time.RFC2822 (
 import Data.Time.Format
 import Data.Time.LocalTime
 import Data.Time.Calendar
-import Data.Maybe 
+import Data.Maybe
 import System.Locale
 
 test1  = "Fri, 21 Nov 1997 09:55:06 -0600"
@@ -62,7 +62,7 @@ testParse = length (catMaybes (map readRFC2822 tests)) == length tests
 -- ----------------------------------------------------------------------------
 -- The RFC2822 class definition
 
--- | This class is here to allow future support for other data types 
+-- | This class is here to allow future support for other data types
 -- like Data.Text or Data.ByteString if that becomes necessary
 class RFC2822 a where
   showRFC2822 :: ZonedTime -> a
@@ -91,7 +91,7 @@ instance RFC2822 String where
                   ]
 
   readRFC2822 t = foldr (tryP t') Nothing $ map p formatRFC2822
-    where 
+    where
       p :: String -> String -> Maybe ZonedTime
       p f s = parseTime defaultTimeLocale f s
 
@@ -100,7 +100,7 @@ instance RFC2822 String where
                    | otherwise = f s
 
       -- t' is a trimmed t (currently only \n is trimmed)
-      -- TODO: trim other white space characters 
+      -- TODO: trim other white space characters
       t' :: String
       t' = lines t >>= ("" ++)
 
