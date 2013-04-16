@@ -41,9 +41,6 @@ import Data.Time.LocalTime
 import Data.Time.Calendar
 import Data.Maybe 
 import System.Locale
-import qualified Data.Attoparsec.Text as A
-import Data.Attoparsec.Text
-import qualified Data.Attoparsec.Combinator as AC
 
 test1  = "Fri, 21 Nov 1997 09:55:06 -0600"
 test2  = "Tue, 15 Nov 1994 12:45:26 GMT"
