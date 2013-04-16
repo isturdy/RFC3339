@@ -12,7 +12,7 @@
 -- the RFC2822 <http://www.ietf.org/rfc/rfc2822.txt> section 3.3
 --
 -- Example of usage:
--- >
+--
 -- > import Data.Time.LocalTime
 -- >
 -- > showTime :: IO String

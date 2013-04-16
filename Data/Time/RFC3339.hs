@@ -12,7 +12,7 @@
 -- the RFC3339 <http://www.ietf.org/rfc/rfc3339.txt>
 --
 -- Example of usage:
--- >
+--
 -- > import Data.Time.LocalTime
 -- >
 -- > showTime :: IO String
