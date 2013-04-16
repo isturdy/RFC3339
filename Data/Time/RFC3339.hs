@@ -39,15 +39,6 @@ import Data.Time.Calendar
 import Data.Maybe
 import System.Locale
 
-test1 = "1985-04-12T23:20:50.52Z"
-test2 = "1996-12-19T16:39:57-08:00"
-test3 = "1990-12-31T23:59:60Z"
-test4 = "1990-12-31T15:59:60-08:00"
-test5 = "1937-01-01T12:00:27.87+00:20"
-tests :: [String]
-tests = [test1, test2, test3, test4, test5]
-testParse = length (catMaybes (map readRFC3339 tests)) == length tests
-
 -- ----------------------------------------------------------------------------
 -- The RFC3339 class definition
 

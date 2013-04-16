@@ -39,3 +39,14 @@ library
 
   extensions: TypeSynonymInstances FlexibleInstances
 
+test-suite timerep-tests
+  type:			exitcode-stdio-1.0
+  hs-source-dirs: 	tests, Data
+  main-is: 		Tests.hs
+
+  build-depends:
+    timerep,
+    base ==4.6.*,
+    HUnit ==1.2.5.*,
+    test-framework,
+    test-framework-hunit
