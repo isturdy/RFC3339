@@ -31,6 +31,7 @@ library
   build-depends:
     base < 5,
     time >= 1.2,
+    text == 0.11.*,
     old-locale
 
   exposed-modules:

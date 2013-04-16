@@ -34,6 +34,7 @@ module Data.Time.RFC3339 (
 ) where
 
 import Control.Applicative
+import qualified Data.Text as T
 import Data.Time.Format
 import Data.Time.LocalTime
 import System.Locale
@@ -67,3 +68,7 @@ instance RFC3339 String where
       tryParse :: String -> Maybe ZonedTime -> Maybe ZonedTime
       tryParse fmt acc = acc <|> parseTime defaultTimeLocale fmt t
 
+instance RFC3339 T.Text where
+  showRFC3339 = T.pack . showRFC3339
+  formatRFC3339 = fmap T.pack formatRFC3339
+  readRFC3339 = readRFC3339 . T.unpack

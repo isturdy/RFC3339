@@ -37,6 +37,7 @@ module Data.Time.RFC2822 (
 ) where
 
 import Control.Applicative
+import qualified Data.Text as T
 import Data.Time.Format
 import Data.Time.LocalTime
 import System.Locale
@@ -77,3 +78,7 @@ instance RFC2822 String where
       tryParse :: String -> Maybe ZonedTime -> Maybe ZonedTime
       tryParse fmt acc = acc <|> parseTime defaultTimeLocale fmt t
 
+instance RFC2822 T.Text where
+  showRFC2822 = T.pack . showRFC2822
+  formatRFC2822 = fmap T.pack formatRFC2822
+  readRFC2822 = readRFC2822 . T.unpack
