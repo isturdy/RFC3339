@@ -33,6 +33,7 @@ module Data.Time.RFC3339 (
     RFC3339(showRFC3339, readRFC3339)
 ) where
 
+import Control.Applicative
 import Data.Time.Format
 import Data.Time.LocalTime
 import System.Locale
@@ -61,11 +62,8 @@ instance RFC3339 String where
                   , "%FT%T%Q%z"
                   , "%FT%T%QZ"
                   ]
-  readRFC3339 t = foldr (tryP t) Nothing $ map p formatRFC3339
+  readRFC3339 t = foldr tryParse Nothing formatRFC3339
     where
-      p :: String -> String -> Maybe ZonedTime
-      p f s = parseTime defaultTimeLocale f s
+      tryParse :: String -> Maybe ZonedTime -> Maybe ZonedTime
+      tryParse fmt acc = acc <|> parseTime defaultTimeLocale fmt t
 
-      tryP :: String -> (String -> Maybe a) -> Maybe a -> Maybe a
-      tryP s f acc | isJust acc = acc
-                   | otherwise = f s

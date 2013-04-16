@@ -36,6 +36,7 @@ module Data.Time.RFC2822 (
     RFC2822(showRFC2822, readRFC2822)
 ) where
 
+import Control.Applicative
 import Data.Time.Format
 import Data.Time.LocalTime
 import System.Locale
@@ -71,16 +72,8 @@ instance RFC2822 String where
                   , "%e %b %Y %R %z"
                   ]
 
-  readRFC2822 t = foldr (tryP t') Nothing $ map p formatRFC2822
+  readRFC2822 t = foldr tryParse Nothing formatRFC2822
     where
-      p :: String -> String -> Maybe ZonedTime
-      p f s = parseTime defaultTimeLocale f s
+      tryParse :: String -> Maybe ZonedTime -> Maybe ZonedTime
+      tryParse fmt acc = acc <|> parseTime defaultTimeLocale fmt t
 
-      tryP :: String -> (String -> Maybe a) -> Maybe a -> Maybe a
-      tryP s f acc | isJust acc = acc
-                   | otherwise = f s
-
-      -- t' is a trimmed t (currently only \n is trimmed)
-      -- TODO: trim other white space characters
-      t' :: String
-      t' = lines t >>= ("" ++)
